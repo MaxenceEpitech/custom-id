@@ -20,14 +20,15 @@ function idGenerate() {
     return str;
 }
 
-module.exports = function customId(customId) {
-    if (typeof customId === "undefined") {
-        throw new Error(
-            "Custom Id expects an object as the argument. Make sure all values of that object are string."
-        );
-    }
+function between(min, max) {
+    if (min >= max) throw { success: false, message: 'Internal error : between' };
+    return Math.floor(
+        Math.random() * (max - min + 1) + min
+    )
+}
 
-    const multiply = customId.uniqueId || 97232;
+module.exports = function customId() {
+    const multiply = between(11111, 99999);
     const crypticNotSecure = Math.floor(Math.random() * multiply);
     const crypticSecureFun = cryptoRandom() * multiply;
     const crypticSecure = Math.floor(crypticSecureFun);
