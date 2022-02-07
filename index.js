@@ -36,6 +36,6 @@ module.exports = function customId() {
     const numbers = idGenerate(4, crypticSecure.toString() || crypticNotSecure.toString());
     const letters = idGenerate(4, "ABCDEFGHIJKLMNOPQRSTUVXYZ");
 
-    const result = numbers + letters;
+    const result = letters + numbers;
     return result.toUpperCase();
 };
