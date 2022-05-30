@@ -1,4 +1,4 @@
-var { customId, isCustomId } = require('./app');
+const { customId, isCustomId } = require('./app');
 
 describe('main', () => {
     test('Is it valid', (done) => {
