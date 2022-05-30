@@ -1,15 +1,14 @@
-var customId = require("./index");
+var { customId, isCustomId } = require('./app');
 
-describe("Is it a string?", () => {
-  let custom = customId({
-    name: "Masud Rana",
-    email: "masudrana@gmail.com",
-    randomLength: 2,
-    lowerCase: true
-  });
+describe('main', () => {
+    test('Is it valid', (done) => {
+        const id = customId();
 
-  const expected = custom;
-  it("Yeah, babe ... It is a fucking string", () => {
-    expect(typeof expected).toBe("string");
-  });
+        expect(id).not.toBe(undefined);
+        expect(isCustomId(id)).toBe(true);
+        expect(isCustomId('5555AAAA')).toBe(false);
+        expect(isCustomId('AAAA2')).toBe(false);
+        expect(isCustomId(null)).toBe(false);
+        done();
+    })
 });
