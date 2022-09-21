@@ -39,10 +39,18 @@ function customId() {
     return result.toUpperCase();
 };
 
+/** New customId is 4 letters and 4 numbers */
 function isCustomId(id) {
-    return typeof id === 'string' && id.length === TOTAL_LENGTH
+    return (typeof id === 'string' && id.length === TOTAL_LENGTH
         && /^[a-zA-Z]+$/.test(id.substring(0, LETTER_LENGTH))
-        && /^[0-9]+$/.test(id.substring(LETTER_LENGTH, TOTAL_LENGTH))
+        && /^[0-9]+$/.test(id.substring(LETTER_LENGTH, TOTAL_LENGTH))) || isOldCustomId(id)
+}
+
+/** Old customId is 3 letters and 3 numbers */
+function isOldCustomId(id) {
+    return typeof id === 'string' && id.length === 6
+        && /^[a-zA-Z]+$/.test(id.substring(0, 3))
+        && /^[0-9]+$/.test(id.substring(3, 6))
 }
 
 module.exports = {

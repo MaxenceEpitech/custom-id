@@ -2,7 +2,7 @@
     "name": "custom-id",
     "author": "Maxence Fourrier",
     "description": "Generate id of 4 letters random and 4 random numbers (ex: 'izsa6281')",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "main": "app.js",
     "repository": "github:fazlulkarimweb/custom-id",
     "license": "MIT",
