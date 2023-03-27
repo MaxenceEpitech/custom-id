@@ -26,7 +26,7 @@ function between(min, max) {
     )
 }
 
-function customId() {
+function customId(type = 'sale') {
     const multiply = between(11111, 99999);
     const crypticNotSecure = Math.floor(Math.random() * multiply);
     const crypticSecureFun = cryptoRandom() * multiply;
@@ -35,18 +35,29 @@ function customId() {
     const letters = idGenerate(LETTER_LENGTH, 'ABCDEFGHIJKLMNOPQRSTUVXYZ');
     const numbers = idGenerate(NUMBER_LENGTH, crypticSecure.toString() || crypticNotSecure.toString());
 
-    const result = letters + numbers;
-    return result.toUpperCase();
+    if (type === 'sale') {
+        return (letters + numbers)?.toUpperCase();
+    } else if (type === 'acquisition') {
+        return (numbers + letters)?.toUpperCase();
+    }
+    throw { success: false, message: 'Internal error : customId unknown type' };
 };
 
-/** New customId is 4 letters and 4 numbers */
-function isCustomId(id) {
-    return (typeof id === 'string' && id.length === TOTAL_LENGTH
+/** New customId is 4 letters + 4 numbers for sales & 4 numbers + 4 letters for acquisitions */
+function isCustomId(id, type = 'sale') {
+    if (type === 'sale') {
+        return (typeof id === 'string' && id.length === TOTAL_LENGTH
         && /^[a-zA-Z]+$/.test(id.substring(0, LETTER_LENGTH))
         && /^[0-9]+$/.test(id.substring(LETTER_LENGTH, TOTAL_LENGTH))) || isOldCustomId(id)
+    } else if (type === 'acquisition') {
+        return (typeof id === 'string' && id.length === TOTAL_LENGTH
+        && /^[0-9]+$/.test(id.substring(0, LETTER_LENGTH)))
+        && /^[a-zA-Z]+$/.test(id.substring(LETTER_LENGTH, TOTAL_LENGTH))
+    }
+    throw { success: false, message: 'Internal error : isCustomId unknown type' };
 }
 
-/** Old customId is 3 letters and 3 numbers */
+/** Sales old customId is 3 letters and 3 numbers */
 function isOldCustomId(id) {
     return typeof id === 'string' && id.length === 6
         && /^[a-zA-Z]+$/.test(id.substring(0, 3))
